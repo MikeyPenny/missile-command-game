@@ -44,7 +44,7 @@ function shootTo(e) {
     let startX = 400;
     let startY = 500;
     let endX = e.pageX;
-    let endY = e.pageY
+    let endY = e.pageY;
     let amount = 0;
     let stepSize = 8;
     let dis = distance({x: startX, y: startY}, {x: endX, y: endY});
@@ -88,11 +88,10 @@ function distance(origin, target) {
 }
 
 window.onload = function() {
-    
-    let canvas = document.getElementById('missile_command');
-    // let ctx = canvas.getContext('2d');
+    const missileCommand = new MissileCommand();
+    missileCommand.startGame();
 
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let canvas = document.getElementById('missile_command');
     canvas.addEventListener("click", shootTo);
     
 }
