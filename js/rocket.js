@@ -1,6 +1,6 @@
 "use strict";
 
-function Rocket() {
+function Rocket(game) {
     this.x = Math.floor(Math.random()*800);
     this.y = 1;
     this.targetX = Math.floor(Math.random()*800);
@@ -13,13 +13,15 @@ function Rocket() {
     this.dis = 0;
     this.steps;
     this.speed;
+    this.collided = false
 
     this.subscribe = () => {
-        game.subscribe(this);
+        game.subscribeRocket(this);
     };
 
     this.unsubscribe = () => {
-        game.unsubscribe(this);
+        game.unSubscribeRocket(this);
+        
     };
 
     this.bringTheRain = () => {
@@ -34,7 +36,7 @@ function Rocket() {
             this.amount += this.speed;
             this.stepCounter++;
 
-            if (this.steps <= this.stepCounter) {
+            if (this.amount >= 1 || this.collided) {
                 this.amount = 1;
                 
                 // new Circle(game)
@@ -46,6 +48,21 @@ function Rocket() {
                 this.ctx.moveTo(this.x, this.y);            
                 this.ctx.lineTo(this.x + (this.targetX - this.x) * this.amount, this.y + (this.targetY - this.y) * this.amount);
                 this.ctx.stroke();
+
+                this.subscribe();
+                
+                this.collided = game.checkRocketBombCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
+                // console.log(this.collided);
+                
+
+                // if(game.checkRocketBombCollision(this)) {
+                //     this.collided = true;
+                //     this.unSubscribe();
+                //     console.log(this.collided);
+                    
+                // } else {
+                //     this.unsubscribe();
+                // }
             
                 window.requestAnimationFrame(drawBomb);
             }

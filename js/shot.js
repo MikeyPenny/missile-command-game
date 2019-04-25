@@ -29,8 +29,9 @@ function explodeBomb(canvas, ctx, endX, endY) {
         radius += 1;
         let bomb = new Circle(missileCommand, endX, endY, radius);
         bomb.subscribe();
-
-        if(radius < 60) {
+        
+        if(radius <= 70) {
+            
             window.requestAnimationFrame(updateCanvas);
         } else {
             bomb.unsubscribe();
@@ -40,7 +41,7 @@ function explodeBomb(canvas, ctx, endX, endY) {
     }
 
     window.requestAnimationFrame(updateCanvas);
-   
+    
 }
 
 function shootTo(e) {
@@ -92,6 +93,8 @@ function distance(origin, target) {
 
     return c;
 }
+
+
 
 window.onload = function() {
     

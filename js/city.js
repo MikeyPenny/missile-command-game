@@ -1,4 +1,4 @@
-function City() {
+function City(game) {
     
     this.x = 0;
     this.y = 500;
@@ -6,9 +6,12 @@ function City() {
     this.height = 50;
     this.area = this.base*this.area;
     
+    this.subscribeCity = function() {
+        game.subscribeCity(this);
+    };
 
-    this.blowCity = function() {
-
+    this.unsubscribeCity = function() {
+        game.unsubscribeCity(this);
     };
 
 

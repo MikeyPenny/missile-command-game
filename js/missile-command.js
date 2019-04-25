@@ -1,3 +1,5 @@
+"use strict";
+
 class MissileCommand {
     
     constructor() {
@@ -16,39 +18,83 @@ class MissileCommand {
     subscribeCircle(circle) {
         this.circles.push(circle);
         
-        
     }
 
     unsubscribeCircle(circle) {
-        this.circles.forEach((element, i) => {
+        /*this.circles.forEach((element, i) => {
             if(element === circle ) {
-                this.circles.splice(i, 1)
+                this.circles.splice(i, 1);
             }
-        })
-        
+        });*/ 
+        this.circles = [];
     }
 
-    subscribeRocket() {}
+    subscribeRocket(rocket) {
+        this.rockets.push(rocket);
+    }
     
-    unSubscribeRocket() {}
+    unSubscribeRocket(rocket) {
+        this.rockets.forEach((element, i) => {
+            if(element === rocket) {
+                this.rockets.splice(i, 1);
+            }
+        });
+    }
     
     subscribeCity(city) {
         this.cities.push(city);
     }
     
-    unSubscribeCity() {}
+    unSubscribeCity(city) {
+        this.cities.forEach((element, i) => {
+            if(element === city) {
+                this.cities.splice(i, 1);
+            }
+        });
+    }
 
     subscribeSilo(silo) {
         this.silos.push(silo);
     }
     
-    unSubscribeSilo() {
-
+    unSubscribeSilo(silo) {
+        this.silos.forEach((element, i) => {
+            if(element === silo) {
+                this.silos.splice(i, 1);
+            }
+        });
     }
 
-    checkRocketBombCollision() {
-
+    checkRocketBombCollision(x,y) {
+        
+        for (let i = 0; i < this.circles.length; i++) {
+            let a = this.circles[i].x - x;
+            let b = this.circles[i].y - y;
+            let dist = Math.sqrt(Math.pow(a, 2) + Math.pow(b,2));
+            
+            if (dist <=  this.circles[i].radius) {
+                console.log(this.circles.length);
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
+
+    distance(origin, target) {
+
+        let a = target.x - origin.x;
+        let b = target.y - origin.y;
+        let c = Math.sqrt(Math.pow(a, 2) + Math.pow(b,2));
+    
+        return c;
+    }
+
+    // testicle() {
+    //     let bomb = new Circle(missileCommand, 400, 300, 20);
+    //     bomb.subscribe();
+    // }
 
     checkRocketCityCollision() {
 
@@ -60,17 +106,21 @@ class MissileCommand {
 
     bringTheRain() {
         
-  
+        
 
         let interval = setInterval(()=> {
             this.waveEnemyMissiles--;
 
-            let rocket = new Rocket();
+            let rocket = new Rocket(this);
             rocket.bringTheRain();  
             
             if(this.waveEnemyMissiles === 0) {
                 clearInterval(interval);
             }
+            
+            console.log(this.circles.length);
+            
+
         }, 1000);  
 
     }
@@ -88,17 +138,17 @@ class MissileCommand {
     }
 
     buildSilos() {
-        let silo1 = new Silo();
+        let silo1 = new Silo(this);
         silo1.x = 80;
-        this.subscribeSilo(silo1);
+        silo1.subscribeSilo();
 
-        let silo2 = new Silo();
+        let silo2 = new Silo(this);
         silo2.x = 400;
-        this.subscribeSilo(silo2);
+        silo2.subscribeSilo();
 
-        let silo3 = new Silo();
+        let silo3 = new Silo(this);
         silo3.x = 720;
-        this.subscribeSilo(silo3);
+        silo3.subscribeSilo();
     }
 
     buildCities() {
@@ -119,9 +169,12 @@ class MissileCommand {
     loadGame()  {
         this.buildSilos();
         this.buildCities();
+        
         this.bringTheRain();
         
         
     }
     
 }
+
+
