@@ -1,3 +1,4 @@
+const missileCommand = new MissileCommand();
 
 function clearCanvas(ctx) {
     ctx.clearRect(0, 0, 800, 600);
@@ -18,6 +19,7 @@ function explodeBomb(canvas, ctx, endX, endY) {
 
     function updateCanvas(){
         
+
         hue = shiftHue(hue);
         color = "hsl("+hue+",100%,50%)";
         ctx.fillStyle = color;
@@ -25,9 +27,13 @@ function explodeBomb(canvas, ctx, endX, endY) {
         ctx.arc(endX, endY, radius, startAngle, endAngle, true);
         ctx.fill();
         radius += 1;
+        let bomb = new Circle(missileCommand, endX, endY, radius);
+        bomb.subscribe();
+
         if(radius < 60) {
             window.requestAnimationFrame(updateCanvas);
         } else {
+            bomb.unsubscribe();
             clearCanvas(ctx)
         }
 
@@ -48,14 +54,14 @@ function shootTo(e) {
     let amount = 0;
     let stepSize = 8;
     let dis = distance({x: startX, y: startY}, {x: endX, y: endY});
-    let steps = dis / stepSize
-    let speed = 1/steps
-    let stepCounter = 0
+    let steps = dis / stepSize;
+    let speed = 1/steps;
+    let stepCounter = 0;
 
     function drawLine() {
 
         amount += speed;
-        stepCounter++
+        stepCounter++;
 
         if (amount > 1) {
             amount = 1;
@@ -80,16 +86,16 @@ function shootTo(e) {
 
 function distance(origin, target) {
 
-    let a = target.x - origin.x
-    let b = target.y - origin.y 
-    let c = Math.sqrt(Math.pow(a, 2) + Math.pow(b,2))
+    let a = target.x - origin.x;
+    let b = target.y - origin.y;
+    let c = Math.sqrt(Math.pow(a, 2) + Math.pow(b,2));
 
-    return c 
+    return c;
 }
 
 window.onload = function() {
-    const missileCommand = new MissileCommand();
-    missileCommand.startGame();
+    
+    missileCommand.loadGame();
 
     let canvas = document.getElementById('missile_command');
     canvas.addEventListener("click", shootTo);
