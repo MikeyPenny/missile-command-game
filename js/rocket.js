@@ -47,7 +47,6 @@ function Rocket(game) {
                 this.ctx.lineTo(this.x + (this.targetX - this.x) * this.amount, this.y + (this.targetY - this.y) * this.amount);
                 this.ctx.stroke();
 
-               
                 
                 this.collided = game.checkRocketBombCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
 

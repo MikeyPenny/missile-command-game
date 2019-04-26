@@ -4,44 +4,6 @@ function clearCanvas(ctx) {
     ctx.clearRect(0, 0, 800, 600);
 }
 
-function explodeBomb(canvas, ctx, endX, endY) {
-
-    
-    let radius= 1;
-    let color = 0;
-    let startAngle = 0;
-    let endAngle = Math.PI*2;
-    let hue = 0;
-
-    function shiftHue(hue) {
-        return (hue+15)%360;
-    }
-
-    function updateCanvas(){
-        
-
-        hue = shiftHue(hue);
-        color = "hsl("+hue+",100%,50%)";
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(endX, endY, radius, startAngle, endAngle, true);
-        ctx.fill();
-        radius += 1;
-        let bomb = new Circle(missileCommand, endX, endY, radius);
-
-        if(radius <= 70) {
-            
-            window.requestAnimationFrame(updateCanvas);
-        } else {
-            bomb.unsubscribe();
-            clearCanvas(ctx)
-        }
-
-    }
-
-    window.requestAnimationFrame(updateCanvas);
-    
-}
 
 function shootTo(e) {
     let canvas = document.getElementById('missile_command');
@@ -66,7 +28,7 @@ function shootTo(e) {
         if (amount > 1) {
             amount = 1;
             // new Circle(game)
-            explodeBomb(canvas, ctx, endX, endY);
+            new Circle(missileCommand, endX, endY, ctx, canvas)
             clearCanvas(ctx);
         } else {
             ctx.strokeStyle = "blue";

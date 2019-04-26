@@ -13,11 +13,10 @@ class MissileCommand {
         this.ufos = [];
         this.score = 0;
         this.record = 0;
-        this.gameObjects = [this.rockets, this.rectangles]
+        this.gameObjects = [this.rockets, this.rectangles, this.circles]
         this.draw = this.draw.bind(this)
 
         window.addEventListener("load", ()=> {
-            debugger
             this.canvas = document.getElementsByTagName("canvas")[0]
             this.ctx = this.canvas.getContext("2d")
             this.draw()
@@ -30,8 +29,12 @@ class MissileCommand {
         
     }
 
-    unsubscribeCircle() {
-        this.circles = [];
+    unsubscribeCircle(circle) {
+        for(let i = 0; i < this.circles.length; i++) {
+            if(circle === this.circles[i]) [
+                this.circles.splice(i, 1)
+            ]
+        }
     }
 
     subscribeRocket(rocket) {
@@ -73,13 +76,11 @@ class MissileCommand {
     checkRocketBombCollision(x,y) {
         
         for (let i = 0; i < this.circles.length; i++) {
-            let a = this.circles[i].x - x;
-            let b = this.circles[i].y - y;
+            let a = this.circles[i].endX - x;
+            let b = this.circles[i].endY - y;
             let dist = Math.sqrt(Math.pow(a, 2) + Math.pow(b,2));
-            
             if (dist <=  this.circles[i].radius) {
                 console.log(this.circles.length);
-                
                 return true;
             }
         }
@@ -205,7 +206,6 @@ class Rectangle {
         })
     }    
     draw() {
-        debugger
         this.ctx.fillStyle = "rgb(255,240,0)";
         this.ctx.beginPath();
         this.ctx.fillRect(155, 500, 100, 50);          
