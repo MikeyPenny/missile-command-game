@@ -38,9 +38,6 @@ function Rocket(game) {
 
             if (this.amount >= 1 || this.collided) {
                 this.amount = 1;
-                
-                // new Circle(game)
-                // explodeBomb(canvas, ctx, endX, endY);
                 this.clearCanvas(this.ctx);
             } else {
                 this.ctx.strokeStyle = "red";
@@ -52,18 +49,7 @@ function Rocket(game) {
                 this.subscribe();
                 
                 this.collided = game.checkRocketBombCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
-                // console.log(this.collided);
-                
 
-                // if(game.checkRocketBombCollision(this)) {
-                //     this.collided = true;
-                //     this.unSubscribe();
-                //     console.log(this.collided);
-                    
-                // } else {
-                //     this.unsubscribe();
-                // }
-            
                 window.requestAnimationFrame(drawBomb);
             }
 

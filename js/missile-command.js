@@ -3,7 +3,7 @@
 class MissileCommand {
     
     constructor() {
-        this.waveEnemyMissiles = 30;
+        this.waveEnemyMissiles = 3;
         this.circles = [];
         this.rockets = [];
         this.cities = [];
@@ -20,12 +20,7 @@ class MissileCommand {
         
     }
 
-    unsubscribeCircle(circle) {
-        /*this.circles.forEach((element, i) => {
-            if(element === circle ) {
-                this.circles.splice(i, 1);
-            }
-        });*/ 
+    unsubscribeCircle() {
         this.circles = [];
     }
 
@@ -91,11 +86,6 @@ class MissileCommand {
         return c;
     }
 
-    // testicle() {
-    //     let bomb = new Circle(missileCommand, 400, 300, 20);
-    //     bomb.subscribe();
-    // }
-
     checkRocketCityCollision() {
 
     }
@@ -106,8 +96,6 @@ class MissileCommand {
 
     bringTheRain() {
         
-        
-
         let interval = setInterval(()=> {
             this.waveEnemyMissiles--;
 
@@ -117,17 +105,28 @@ class MissileCommand {
             if(this.waveEnemyMissiles === 0) {
                 clearInterval(interval);
             }
-            
-            console.log(this.circles.length);
-            
-
         }, 1000);  
 
     }
 
-    
+    testRectangle() {
+        let canvas = document.getElementById('missile_command');
+        let ctx = canvas.getContext('2d');
+        
+        
+        
+        var drawRectangle = () => {
+            
+            ctx.fillStyle = "rgb(255,240,0)";
+            ctx.beginPath();
+            ctx.fillRect(155, 500, 100, 50);
+            
 
-    
+            window.requestAnimationFrame(drawRectangle);
+
+        };
+        window.requestAnimationFrame(drawRectangle);
+    }
 
     countEnemyMissiles() {
         this.waveEnemyMissiles--;
@@ -151,30 +150,29 @@ class MissileCommand {
         silo3.subscribeSilo();
     }
 
-    buildCities() {
-        let city1 = new City();
-        city1.x = 155;
-        this.subscribeCity(city1);
-        let city2 = new City();
-        city2.x = 275;
-        this.subscribeCity(city2);
-        let city3 = new City();
-        city3.x = 465;
-        this.subscribeCity(city3);
-        let city4 = new City();
-        city4.x = 565;
-        this.subscribeCity(city4);
-    }
+    // buildCities() {
+    //     let canvas = document.getElementById('missile_command');
+    //     let city1 = new City(canvas, this);
+    //     city1.x = 155;
+    //     city1.drawCity();
+    //     this.subscribeCity(city1);
+    //     let city2 = new City();
+    //     city2.x = 275;
+    //     this.subscribeCity(city2);
+    //     let city3 = new City();
+    //     city3.x = 465;
+    //     this.subscribeCity(city3);
+    //     let city4 = new City();
+    //     city4.x = 565;
+    //     this.subscribeCity(city4);
+    // }
 
     loadGame()  {
         this.buildSilos();
-        this.buildCities();
-        
+        // this.buildCities();
         this.bringTheRain();
-        
-        
+        this.testRectangle();
     }
-    
 }
 
 
