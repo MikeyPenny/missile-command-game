@@ -15,4 +15,6 @@ function Circle(game, x, y, radius) {
         game.unsubscribeCircle(this);
     };
 
+    this.subscribe();
+
 }

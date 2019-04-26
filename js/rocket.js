@@ -15,6 +15,7 @@ function Rocket(game) {
     this.speed;
     this.collided = false
 
+
     this.subscribe = () => {
         game.subscribeRocket(this);
     };
@@ -29,10 +30,10 @@ function Rocket(game) {
         this.dis = this.distance({x: this.x, y: this.y}, {x: this.targetX, y: this.targetY});
         this.steps = this.dis / this.stepSize;
         this.speed = 1/this.steps;
-        
+        this.subscribe();
         
         var drawBomb = () => {
-
+            
             this.amount += this.speed;
             this.stepCounter++;
 
@@ -46,17 +47,17 @@ function Rocket(game) {
                 this.ctx.lineTo(this.x + (this.targetX - this.x) * this.amount, this.y + (this.targetY - this.y) * this.amount);
                 this.ctx.stroke();
 
-                this.subscribe();
+               
                 
                 this.collided = game.checkRocketBombCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
 
-                window.requestAnimationFrame(drawBomb);
             }
 
         }
 
-        window.requestAnimationFrame(drawBomb);
+        this.draw = drawBomb
     };
+
 
     this.distance = (origin, target) => {
 
@@ -71,4 +72,5 @@ function Rocket(game) {
         ctx.clearRect(0, 0, 800, 600);
     }
 
+    this.bringTheRain(); 
 }

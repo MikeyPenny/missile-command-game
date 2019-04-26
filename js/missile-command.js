@@ -9,10 +9,20 @@ class MissileCommand {
         this.cities = [];
         this.silos = [];
         this.missiles = [];
+        this.rectangles = [new Rectangle()]
         this.ufos = [];
         this.score = 0;
         this.record = 0;
-        
+        this.gameObjects = [this.rockets, this.rectangles]
+        this.draw = this.draw.bind(this)
+
+        window.addEventListener("load", ()=> {
+            debugger
+            this.canvas = document.getElementsByTagName("canvas")[0]
+            this.ctx = this.canvas.getContext("2d")
+            this.draw()
+
+        })
     }
 
     subscribeCircle(circle) {
@@ -94,13 +104,28 @@ class MissileCommand {
 
     }
 
+    clearCanvas(ctx) {
+        ctx.clearRect(0, 0, 800, 600);
+    }
+
+    draw() {
+        
+        this.clearCanvas(this.ctx);
+        for(let i = 0; i < this.gameObjects.length; i++) {
+            
+                for(let j = 0; j < this.gameObjects[i].length; j++) {
+                    this.gameObjects[i][j].draw()
+                }
+        }
+        window.requestAnimationFrame(this.draw.bind(this));
+    }
+
     bringTheRain() {
         
         let interval = setInterval(()=> {
             this.waveEnemyMissiles--;
 
             let rocket = new Rocket(this);
-            rocket.bringTheRain();  
             
             if(this.waveEnemyMissiles === 0) {
                 clearInterval(interval);
@@ -109,24 +134,20 @@ class MissileCommand {
 
     }
 
-    testRectangle() {
-        let canvas = document.getElementById('missile_command');
-        let ctx = canvas.getContext('2d');
+    // draw() {
+    //     let canvas = document.getElementById('missile_command');
+    //     let ctx = canvas.getContext('2d');
         
-        
-        
-        var drawRectangle = () => {
+    //     var drawRectangle = () => {
             
-            ctx.fillStyle = "rgb(255,240,0)";
-            ctx.beginPath();
-            ctx.fillRect(155, 500, 100, 50);
+    //         ctx.fillStyle = "rgb(255,240,0)";
+    //         ctx.beginPath();
+    //         ctx.fillRect(155, 500, 100, 50);
             
 
-            window.requestAnimationFrame(drawRectangle);
 
-        };
-        window.requestAnimationFrame(drawRectangle);
-    }
+    //     };
+    // }
 
     countEnemyMissiles() {
         this.waveEnemyMissiles--;
@@ -171,8 +192,23 @@ class MissileCommand {
         this.buildSilos();
         // this.buildCities();
         this.bringTheRain();
-        this.testRectangle();
+        // this.testRectangle();
     }
 }
 
 
+class Rectangle {
+    constructor() {
+        window.addEventListener("load", ()=> {
+            this.canvas = document.getElementById('missile_command');
+            this.ctx = this.canvas.getContext('2d');
+        })
+    }    
+    draw() {
+        debugger
+        this.ctx.fillStyle = "rgb(255,240,0)";
+        this.ctx.beginPath();
+        this.ctx.fillRect(155, 500, 100, 50);          
+
+    }
+}
