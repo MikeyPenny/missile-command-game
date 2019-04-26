@@ -6,43 +6,12 @@ function clearCanvas(ctx) {
 
 
 function shootTo(e) {
-    let canvas = document.getElementById('missile_command');
-    let ctx = canvas.getContext('2d');
 
-    let startX = 400;
-    let startY = 500;
-    let endX = e.pageX;
-    let endY = e.pageY;
-    let amount = 0;
-    let stepSize = 8;
-    let dis = distance({x: startX, y: startY}, {x: endX, y: endY});
-    let steps = dis / stepSize;
-    let speed = 1/steps;
-    let stepCounter = 0;
 
-    function drawLine() {
+    new Shot(missileCommand, e)
 
-        amount += speed;
-        stepCounter++;
 
-        if (amount > 1) {
-            amount = 1;
-            // new Circle(game)
-            new Circle(missileCommand, endX, endY, ctx, canvas)
-            clearCanvas(ctx);
-        } else {
-            ctx.strokeStyle = "blue";
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);            
-            ctx.lineTo(startX + (endX - startX) * amount, startY + (endY - startY) * amount);
-            ctx.stroke();
-            
-            window.requestAnimationFrame(drawLine);
-        }
 
-    }
-
-    window.requestAnimationFrame(drawLine);
 
 }
 
@@ -64,4 +33,48 @@ window.onload = function() {
     let canvas = document.getElementById('missile_command');
     canvas.addEventListener("click", shootTo);
     
+}
+
+class Shot {
+    constructor(game, e) {
+        this.startX = 400;
+        this.startY = 500;
+        this.endX = e.pageX;
+        this.endY = e.pageY;
+        this.amount = 0;
+        this.stepSize = 8;
+        this.dis = distance({x: this.startX, y: this.startY}, {x: this.endX, y: this.endY});
+        this.steps = this.dis / this.stepSize;
+        this.speed = 1/this.steps;
+        this.stepCounter = 0;
+        this.game = game
+    
+        this.canvas = document.getElementById('missile_command');
+        this.ctx = this.canvas.getContext('2d');
+     
+        this.subscribe(this)
+    }
+    subscribe() {
+        this.game.subscribeShot(this)
+    }
+
+    unsubscribe() {
+        this.game.unsubScribeShot(this)
+    }
+    draw() {
+        this.amount += this.speed;
+        this.stepCounter++;
+
+        if (this.amount > 1) {
+            this.amount = 1;
+            new Circle(this.game, this.endX, this.endY, this.ctx, this.canvas)
+            this.unsubscribe(this)
+        } else {
+            this.ctx.strokeStyle = "blue";
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.startX, this.startY);            
+            this.ctx.lineTo(this.startX + (this.endX - this.startX) * this.amount, this.startY + (this.endY - this.startY) * this.amount);
+            this.ctx.stroke();
+        }
+    }
 }

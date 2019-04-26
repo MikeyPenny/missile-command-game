@@ -19,6 +19,7 @@ class Circle{
     };
 
     subscribe() {
+        debugger
         this.game.subscribeCircle(this);
     };
 
@@ -28,7 +29,6 @@ class Circle{
 
     draw () {
         this.hue = this.shiftHue(this.hue);
-        debugger
         let color = "hsl("+this.hue+",100%,50%)";
         this.ctx.fillStyle = color;
         this.ctx.beginPath();
@@ -37,6 +37,7 @@ class Circle{
         this.radius += 1;
         
         if(this.radius >= 70) {
+            debugger
             this.unsubscribe();
         }
     }

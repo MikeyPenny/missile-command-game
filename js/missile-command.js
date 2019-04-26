@@ -11,17 +11,29 @@ class MissileCommand {
         this.missiles = [];
         this.rectangles = [new Rectangle()]
         this.ufos = [];
+        this.shots = [];
         this.score = 0;
         this.record = 0;
-        this.gameObjects = [this.rockets, this.rectangles, this.circles]
+        this.gameObjects = [this.rockets, this.rectangles, this.circles, this.shots]
         this.draw = this.draw.bind(this)
-
         window.addEventListener("load", ()=> {
             this.canvas = document.getElementsByTagName("canvas")[0]
             this.ctx = this.canvas.getContext("2d")
             this.draw()
 
         })
+    }
+
+    subscribeShot(shot) {
+        this.shots.push(shot)
+    }
+
+    unsubScribeShot(shot) {
+        for(let i = 0; i < this.shots.length; i++) {
+            if(shot === this.shots[i]) [
+                this.shots.splice(i, 1)
+            ]
+        }
     }
 
     subscribeCircle(circle) {
