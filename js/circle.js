@@ -19,7 +19,6 @@ class Circle{
     };
 
     subscribe() {
-        debugger
         this.game.subscribeCircle(this);
     };
 
@@ -37,7 +36,6 @@ class Circle{
         this.radius += 1;
         
         if(this.radius >= 70) {
-            debugger
             this.unsubscribe();
         }
     }

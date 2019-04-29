@@ -7,17 +7,32 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/styles.css">
     
+    <script src="js/ground.js"></script>
+    <script src="js/endOfStage.js"></script>
+    <script src="js/scoreArrow.js"></script>
+    <script src="js/score.js"></script>
     <script src="js/sprite.js"></script>
     <script src="js/silos.js"></script>
     <script src="js/circle.js"></script>
     <script src="js/rocket.js"></script>
     <script src="js/city.js"></script>
-    <script src="js/missile-command.js"></script>
     <script src="js/shot.js"></script>
+    <script src="js/missile-command.js"></script>
+    <script src="js/main.js"></script>
     
 </head>
 <body>
-
-    <canvas id="missile_command" width="800" height="600"></canvas>
+    <div class="content">
+        <div class="game-title container"><img src="imgs/title.jpg" alt="Missile Command"></div>
+        <div class="row container">
+            
+            <canvas id="missile_command" width="800" height="600"></canvas>
+            <div class="right">
+                <img src="imgs/coverArt.jpg" alt="About Missile Command" >
+                <button id="start">START</button>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

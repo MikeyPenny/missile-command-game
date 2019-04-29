@@ -13,7 +13,7 @@ function Rocket(game) {
     this.dis = 0;
     this.steps;
     this.speed;
-    this.collided = false
+    this.collided = false;
 
 
     this.subscribe = () => {
@@ -43,18 +43,28 @@ function Rocket(game) {
             } else {
                 this.ctx.strokeStyle = "red";
                 this.ctx.beginPath();
-                this.ctx.moveTo(this.x, this.y);            
+                this.ctx.moveTo(this.x, this.y);
                 this.ctx.lineTo(this.x + (this.targetX - this.x) * this.amount, this.y + (this.targetY - this.y) * this.amount);
                 this.ctx.stroke();
 
                 
                 this.collided = game.checkRocketBombCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
 
+                if ((this.y + (this.targetY - this.y) * this.amount) > 495) {
+                    
+                    this.collided = game.checkRocketSiloCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
+                }
+
+                if ((this.y + (this.targetY - this.y) * this.amount) > 495) {
+                    
+                    this.collided = game.checkRocketCityCollision((this.x + (this.targetX - this.x) * this.amount), (this.y + (this.targetY - this.y) * this.amount));
+                }
+
             }
 
         }
 
-        this.draw = drawBomb
+        this.draw = drawBomb;
     };
 
 

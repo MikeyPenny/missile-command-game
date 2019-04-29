@@ -1,5 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    background: linear-gradient(180deg, rgb(216, 17, 17) 10%, rgb(44, 44, 44) 0%);
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    
+}
+
+.game-title img {
+    height: 5vh;
+    width: 20%;
+    margin-left: 285px;
+}
+
 canvas {
     border: 1px solid red;
     background-color: #000;
-
+    margin: 0;
+    padding: 0;
 }
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+#start-btn {
+    border: 1px solid red;
+    background-color: #fff;
+    color: rgb(204, 70, 70);
+    font-size: 1.2em;
+    font-weight: normal;
+    padding: 16px;
+    width: 10vw;
+    border-radius: 20px;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+.right img {
+    height: 40vh;
+    width: 50%;
+}
+
+
+
