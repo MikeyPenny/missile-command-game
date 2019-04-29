@@ -34,7 +34,7 @@ canvas {
     align-content: center;
 }
 
-#start-btn {
+#start {
     border: 1px solid red;
     background-color: #fff;
     color: rgb(204, 70, 70);
@@ -48,12 +48,22 @@ canvas {
 .right {
     display: flex;
     justify-content: center;
-    align-content: flex-end;
+    align-content: center;
+    
 }
 
 .right img {
+    
     height: 40vh;
     width: 50%;
+}
+
+.img-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
 }
 
 
